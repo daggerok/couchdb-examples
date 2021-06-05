@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>couchdb-examples-parent</artifactId>
+    <groupId>om.github.daggerok.couchbase</groupId>
+    <version>0.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <description>CouchDB in Docker: https://hub.docker.com/_/couchdb</description>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>docker</artifactId>
+  <packaging>pom</packaging>
+  <properties>
+    <docker.name>couchdb:3.1.1</docker.name>
+    <docker.log.prefix>couchdb</docker.log.prefix>
+    <docker.ports.1>5984:5984</docker.ports.1>
+    <docker.env.COUCHDB_USER>myUser</docker.env.COUCHDB_USER>
+    <docker.env.COUCHDB_PASSWORD>myPassword</docker.env.COUCHDB_PASSWORD>
+    <!--
+    <docker.envRun.COUCHDB_USER>admin</docker.envRun.COUCHDB_USER>
+    <docker.envRun.COUCHDB_PASSWORD>password</docker.envRun.COUCHDB_PASSWORD>
+    <docker.env.COUCHDB_SECRET>secret</docker.env.COUCHDB_SECRET>
+    <docker.envRun.COUCHDB_SECRET>secret</docker.envRun.COUCHDB_SECRET>
+    <docker.env.COUCHDB_NODEMANR>mynodename</docker.env.COUCHDB_NODEMANR>
+    <docker.envRun.COUCHDB_NODEMANR>mynodename</docker.envRun.COUCHDB_NODEMANR>
+    -->
+    <docker.wait.log>Apache CouchDB has started. Time to relax.</docker.wait.log>
+    <docker.wait.time>3000</docker.wait.time>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker-maven-plugin.version}</version>
+        <configuration>
+          <follow>false</follow>
+          <verbose>true</verbose>
+          <useColor>true</useColor>
+          <logDate>default</logDate>
+          <autoPull>always</autoPull>
+          <name>${project.name}</name>
+          <keepRunning>false</keepRunning>
+          <watchInterval>500</watchInterval>
+          <allContainers>true</allContainers>
+          <removeVolumes>true</removeVolumes>
+          <imagePullPolicy>IfNotPresent</imagePullPolicy>
+          <autoCreateCustomNetworks>true</autoCreateCustomNetworks>
+          <images>
+            <image>
+              <external>
+                <type>properties</type>
+                <prefix>docker</prefix>
+                <mode>only</mode>
+              </external>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
