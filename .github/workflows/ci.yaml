@@ -38,7 +38,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - run: ./mvnw -B dependency:resolve dependency:resolve-plugins
       - run: ./mvnw -f docker docker:start
-      - run: npx wait-port 5432
+      - run: ./mvnw test
       - run: ./mvnw -f docker docker:stop
   dependency-updates:
     if: startsWith(github.event.inputs.trigger, 'm')
