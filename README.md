@@ -1,4 +1,4 @@
-# couchdb-examples
+# couchdb-examples [![CI](https://github.com/daggerok/couchdb-examples/actions/workflows/ci.yaml/badge.svg)](https://github.com/daggerok/couchdb-examples/actions/workflows/ci.yaml)
 
 ```bash
 ./mvnw -f docker docker:start
